@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="120" height="120" tilewidth="64" tileheight="84" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="120" height="120" tilewidth="64" tileheight="84" infinite="0" nextlayerid="7" nextobjectid="24">
  <tileset firstgid="1" source="test-tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="120" height="120">
   <data encoding="base64" compression="zlib">
-   eJzt10lu6lAURVE7FUUKGNKb/6hyCUayEEkLiaPc1XjiW+ivuPHE0Z6naXqqs6mzrTMvz891Xuq81nlbfb+bpnGsc/rcL+e359PnzH+oX5/TfjnH8///+fd7nY86n3W+6hyW7+vvj+35vUa9x9j88bzlP9yfr+7N9T1aP1/uz617U+8z6n1Gvc+o9xmH1f3kP87fXd2b63u0fr7cn1v3pn5PRv2ejPo9GW+r7/kP96P2gn9fP20v+Pf10/aCf18/cC/49/Vv3oP/ukfd/LS94Otfvv7l698Oftpe8PUvX//y9W8HP20v+PqXr3/5+reDn7YXfP3L1798/dvBT9sLvv7l61++/u3gp+0FX//y9S9f/3bw0/aCr3/5+pevfzv4aXvB1798/cvXvx38tL3g61++/uXr3w5+2l7w9S9f//L1bwc/bS/4+pevf/n6t4Ofthd8/cvXv3z928FP2wu+/uXrX77+7eCn7QVf//L1L1//dvDT9oKvf/n6l69/O/hpe8HXv3z9y9e/Hfy0veDrX77+5evfDn7aXvD1L1//8vVvBz9tL/j6l69/+fq3g5+2F3z9y9e/fP3bwU/bC77+5etfvv7t4KftBV//8vUvX/928NP2gq9/+fqXr387+Gl7wde/fP3L178d/LS94Otfvv7l698Oftpe8PUvX//y9W8HP20v+PqXr3/5+reDn7YXfP3L17/88+c3vJXVBQ==
+   eJzt10tu6kAURVE7P2hAPjChmv+ocglGshBJC4mj3NUo8Sz0VtwocbTnaZqe6mzqbOvMy/NznZc6r3XeVt/vpmkc65w+98v57fn0OfMf6tfntF/O8fz/f/79XuejzmedrzqH5fv6+2N7fq9R7zE2fzxv+Q/356t7c32P1s+X+3Pr3tT7jHqfUe8z6n3GYXU/+Y/zd1f35voerZ8v9+fWvanfk1G/J6N+T8bb6nv+w/2oveDf10/bC/59/bS94N/XD9wL/n39m/fgv+5RNz9tL/j6l69/+fq3g5+2F3z9y9e/fP3bwU/bC77+5etfvv7t4KftBV//8vUvX/928NP2gq9/+fqXr387+Gl7wde/fP3L178d/LS94Otfvv7l698Oftpe8PUvX//y9W8HP20v+PqXr3/5+reDn7YXfP3L1798/dvBT9sLvv7l61++/u3gp+0FX//y9S9f/3bw0/aCr3/5+pevfzv4aXvB1798/cvXvx38tL3g61++/uXr3w5+2l7w9S9f//L1bwc/bS/4+pevf/n6t4Ofthd8/cvXv3z928FP2wu+/uXrX77+7eCn7QVf//L1L1//dvDT9oKvf/n6l69/O/hpe8HXv3z9y9e/Hfy0veDrX77+5evfDn7aXvD1L1//8vVvBz9tL/j6l69/+fq3g5+2F3z9y9e/fP3bwU/bC77+5etfvv7t4KftBV//8vUv//z5DcGuKXQ=
   </data>
  </layer>
+ <objectgroup id="4" name="kiosks">
+  <object id="8" gid="9" x="256" y="84" width="64" height="84"/>
+  <object id="9" gid="9" x="64" y="168" width="64" height="84"/>
+  <object id="10" gid="9" x="256" y="336" width="64" height="84"/>
+  <object id="11" gid="22" x="192" y="420" width="64" height="84"/>
+  <object id="12" gid="22" x="512" y="420" width="64" height="84"/>
+  <object id="13" gid="22" x="256" y="672" width="64" height="84"/>
+  <object id="14" gid="22" x="768" y="588" width="64" height="84"/>
+  <object id="15" gid="22" x="1088" y="504" width="64" height="84"/>
+  <object id="16" gid="22" x="1088" y="168" width="64" height="84"/>
+  <object id="17" gid="22" x="896" y="840" width="64" height="84"/>
+  <object id="18" gid="22" x="960" y="924" width="64" height="84"/>
+  <object id="19" gid="22" x="640" y="924" width="64" height="84"/>
+  <object id="20" gid="22" x="768" y="1176" width="64" height="84"/>
+  <object id="21" gid="22" x="768" y="1344" width="64" height="84"/>
+  <object id="22" gid="22" x="448" y="1008" width="64" height="84"/>
+  <object id="23" gid="22" x="192" y="1008" width="64" height="84"/>
+ </objectgroup>
 </map>
