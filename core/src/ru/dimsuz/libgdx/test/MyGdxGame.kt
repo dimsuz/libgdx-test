@@ -83,9 +83,8 @@ class MyGdxGame : ApplicationAdapter(), GestureDetector.GestureListener {
     tiledMapRenderer.render()
     if (debugToolsVisible) {
       batch.begin()
-      font.draw(batch, "Pan: xmin=${panMinX}, xmax=${panMaxX})", 16f, 16f + font.lineHeight * 5)
-      font.draw(batch, "Pan: ymin=${panMinY}, ymax=${panMaxY})", 16f, 16f + font.lineHeight * 4)
-      font.draw(batch, "Camvport: (${camera.position.x - camera.viewportWidth/2f}, ${camera.position.y + camera.viewportHeight/2f})", 16f, 16f + font.lineHeight * 3)
+      font.draw(batch, "Pan: xmin=${panMinX}, xmax=${panMaxX})", 16f, 16f + font.lineHeight * 4)
+      font.draw(batch, "Pan: ymin=${panMinY}, ymax=${panMaxY})", 16f, 16f + font.lineHeight * 3)
       font.draw(batch, "Camera: (${camera.position.x}, ${camera.position.y})", 16f, 16f + font.lineHeight * 2)
       font.draw(batch, String.format("Zoom: %.3f", camera.zoom), 16f, 16f + font.lineHeight)
       batch.end()
@@ -171,7 +170,13 @@ class MyGdxGame : ApplicationAdapter(), GestureDetector.GestureListener {
   }
 
   override fun zoom(initialDistance: Float, distance: Float): Boolean {
-    camera.zoom -= 0.1f
+    // TODO @dz: make zoom device independent, and instead of having PINCH_ZOOM_FACTOR, translate pixel distance
+    //  directly into zoom increments in the camera coordinate system
+    camera.zoom = MathUtils.clamp(
+      camera.zoom + PINCH_ZOOM_FACTOR * (initialDistance - distance) / tileWidth,
+      defaultZoom - (defaultZoom * MAX_ZOOM_FACTOR - defaultZoom),
+      defaultZoom
+    )
     camera.update()
     return false
   }
@@ -190,6 +195,7 @@ class MyGdxGame : ApplicationAdapter(), GestureDetector.GestureListener {
 }
 
 private const val MOUSE_WHEEL_ZOOM_FACTOR = 0.1f
+private const val PINCH_ZOOM_FACTOR = 0.01f
 
 /**
  * A size of the "active map" area in tiles
