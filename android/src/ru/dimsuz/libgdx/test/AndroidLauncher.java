@@ -18,14 +18,5 @@ public class AndroidLauncher extends AndroidApplication {
 		View renderView = initializeForView(new MyGdxGame(), config);
 		FrameLayout layout = findViewById(R.id.frame);
 		layout.addView(renderView, 0);
-
-		findViewById(R.id.button).setOnClickListener(view -> {
-			((Button)view).setText("Clicked!");
-			getHandler().postDelayed(() -> ((Button)view).setText("Button"), 800);
-		});
-		findViewById(R.id.smol_button).setOnClickListener(view -> {
-			((Button)view).setText("Clicked!");
-			getHandler().postDelayed(() -> ((Button)view).setText("Button"), 800);
-		});
 	}
 }
