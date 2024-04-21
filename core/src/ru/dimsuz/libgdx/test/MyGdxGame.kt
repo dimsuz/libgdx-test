@@ -73,6 +73,7 @@ class MyGdxGame : ApplicationAdapter(), GestureDetector.GestureListener {
         defaultZoom
       )
       camera.update()
+      makeCameraPositionInBoundsAfterZoom()
       return false
     }
   }
@@ -147,22 +148,29 @@ class MyGdxGame : ApplicationAdapter(), GestureDetector.GestureListener {
   }
 
   override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float): Boolean {
-    val halfViewportHeight = camera.viewportHeight * camera.zoom * 0.5f
-    val halfViewportWidth = camera.viewportWidth * camera.zoom * 0.5f
     tmpVector3.set(camera.position)
     tmpVector3.add(-deltaX, deltaY, 0f)
     // limit panning only if both limit boundaries are outside of the camera's current view, otherwise
     // we'd end up trying to clamp to the boundaries which are already *within* view range, this would require
     // changing zoom
-    if (panMaxX - panMinX >= halfViewportWidth * 2) {
+    if (isHorizontalPanRestricted()) {
+      val halfViewportWidth = camera.viewportWidth * camera.zoom * 0.5f
       tmpVector3.x = MathUtils.clamp(tmpVector3.x, panMinX + halfViewportWidth, panMaxX - halfViewportWidth)
     }
-    if (panMaxY - panMinY >= halfViewportHeight * 2) {
+    if (isVerticalPanRestricted()) {
+      val halfViewportHeight = camera.viewportHeight * camera.zoom * 0.5f
       tmpVector3.y = MathUtils.clamp(tmpVector3.y, panMinY + halfViewportHeight, panMaxY - halfViewportHeight)
     }
     camera.position.set(tmpVector3)
     camera.update()
     return false
+  }
+
+  private fun isHorizontalPanRestricted(): Boolean {
+    return panMaxX - panMinX >= camera.viewportWidth * camera.zoom
+  }
+  private fun isVerticalPanRestricted(): Boolean {
+    return panMaxY - panMinY >= camera.viewportHeight * camera.zoom
   }
 
   override fun panStop(x: Float, y: Float, pointer: Int, button: Int): Boolean {
@@ -178,7 +186,29 @@ class MyGdxGame : ApplicationAdapter(), GestureDetector.GestureListener {
       defaultZoom
     )
     camera.update()
+    makeCameraPositionInBoundsAfterZoom()
     return false
+  }
+
+  private fun makeCameraPositionInBoundsAfterZoom() {
+    // ensure pan restrictions are applied (might be broken during zoom out)
+    if (isHorizontalPanRestricted()) {
+      val halfViewportWidth = camera.viewportWidth * camera.zoom * 0.5f
+      if (camera.position.x + halfViewportWidth > panMaxX) {
+        camera.position.x = panMaxX - halfViewportWidth
+      } else if (camera.position.x - halfViewportWidth < panMinX) {
+        camera.position.x = panMinX + halfViewportWidth
+      }
+    }
+    if (isVerticalPanRestricted()) {
+      val halfViewportHeight = camera.viewportHeight * camera.zoom * 0.5f
+      if (camera.position.y - halfViewportHeight < panMinY) {
+        camera.position.y = panMinY + halfViewportHeight
+      } else if (camera.position.y + halfViewportHeight > panMaxY) {
+        camera.position.y = panMaxY - halfViewportHeight
+      }
+    }
+    camera.update()
   }
 
   override fun pinch(
