@@ -46,6 +46,12 @@ class MyGdxGame : ApplicationAdapter(), GestureDetector.GestureListener {
     debugShapes.color = Color.RED
 
     tiledMap = TmxMapLoader().load("aplCityProto1.tmx")
+    val baseLayer = tiledMap.layers[0] as TiledMapTileLayer
+    mapWidthTiles = baseLayer.width
+    mapHeightTiles = baseLayer.height
+    tileWidth = baseLayer.tileWidth
+    tileHeight = baseLayer.tileHeight
+
     tiledMapRenderer = IsometricTiledMapRenderer(tiledMap)
     val multiplexer = InputMultiplexer()
     multiplexer.addProcessor(GestureDetector(this))
@@ -53,11 +59,6 @@ class MyGdxGame : ApplicationAdapter(), GestureDetector.GestureListener {
     Gdx.input.inputProcessor = multiplexer
 
     camera = OrthographicCamera()
-    val baseLayer = tiledMapRenderer.map.layers[0] as TiledMapTileLayer
-    mapWidthTiles = baseLayer.width
-    mapHeightTiles = baseLayer.height
-    tileWidth = baseLayer.tileWidth
-    tileHeight = baseLayer.tileHeight
     mapViewport = ExtendViewport(
       baseLayer.width.toFloat() * baseLayer.tileWidth,
       baseLayer.height.toFloat() * baseLayer.tileHeight,
@@ -148,8 +149,10 @@ class MyGdxGame : ApplicationAdapter(), GestureDetector.GestureListener {
   }
 
   override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float): Boolean {
+    val touch = camera.unproject(Vector3(x, y , 0f))
+    val delta = camera.unproject(Vector3(x + deltaX, y + deltaY , 0f))
     tmpVector3.set(camera.position)
-    tmpVector3.add(-deltaX, deltaY, 0f)
+    tmpVector3.add(touch.sub(delta))
     // limit panning only if both limit boundaries are outside of the camera's current view, otherwise
     // we'd end up trying to clamp to the boundaries which are already *within* view range, this would require
     // changing zoom
